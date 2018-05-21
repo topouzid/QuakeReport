@@ -45,9 +45,8 @@ public final class QueryUtils {
     public static ArrayList<Earthquake> extractEarthquakes() throws IOException {
 
         // Create an empty ArrayList that we can start adding earthquakes to
-
-
         JsonReader reader = new JsonReader(new StringReader(SAMPLE_JSON_RESPONSE));
+//        JsonObject reader = new JSONObject(SAMPLE_JSON_RESPONSE);
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -70,7 +69,7 @@ public final class QueryUtils {
     }
 
     public static ArrayList<Earthquake> readEarthquakesArray(JsonReader reader) throws IOException {
-        ArrayList<Earthquake> earthquakesFeatures = new ArrayList<Earthquake>();
+        ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -79,41 +78,27 @@ public final class QueryUtils {
                 Log.v("QueryUtils REA", "You are inside \"features\" TAG");
                 reader.beginArray();
                 while (reader.hasNext()) {
-
-                    Log.v("QueryUtils REA", "Name = " + name);
-//                    earthquakes.add(readEarthquake(reader));
-//                    earthquakesFeatures.add(readFeaturesArray(reader));
-                    return readFeaturesArray(reader);
-//                    earthquakesFeatures.add(readFeaturesArray(reader));
-
-
-
-//                    name = reader.nextName();
-
-//                    name = reader.nextName();
-//                    Log.v("QueryUtils REA", "Name = " + name);
-//                    if (name.equals("properties")) {
-//                        reader.beginObject();
-//                        while (reader.hasNext()) {
-//                            earthquakes.add(readEarthquake(reader));
-//                        }
-//                        reader.endObject();
-//                    } else {
-//                        reader.skipValue();
-//                    }
-
+                    reader.beginObject();
+                    while (reader.hasNext()) {
+                        name = reader.nextName();
+                        if (name.equals("properties")) {
+                            Log.v("QueryUtils RF", "[else] reader.nextName: \"" + name + "\". Reading data...");
+                            earthquakes.add(readEarthquake(reader));
+                        } else {
+                            Log.v("QueryUtils RF", "[else] reader.nextName: \"" + name + "\". Skipped because no \"Properties\"");
+                            reader.skipValue();
+                        }
+                    }
+                    reader.endObject();
                 }
-
                 reader.endArray();
             } else {
                 reader.skipValue();
-                Log.v("QueryUtils REA", "No more quakes to add");
             }
-
         }
+        Log.v("QueryUtils REA", "No more quakes to add");
         reader.endObject();
-        return earthquakesFeatures;
-//        return null;
+        return earthquakes;
     }
 
     public static Earthquake readEarthquake(JsonReader reader) throws IOException {
@@ -136,32 +121,11 @@ public final class QueryUtils {
                 time = reader.nextLong();
                 Log.v("QueryUtils RE", "Earthquake Time: " + time);
             } else {
-//                Log.v("QueryUtils RE", "[else] reader.nextName: " + name);
                 reader.skipValue();
             }
         }
         reader.endObject();
         return new Earthquake(place, time, mag);
     }
-
-    public static ArrayList<Earthquake> readFeaturesArray(JsonReader reader) throws IOException {
-
-        ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
-        Log.v("QueryUtils RF", "You are inside readFeaturesArray method");
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals("properties")) {
-                earthquakes.add(readEarthquake(reader));
-            } else {
-                Log.v("QueryUtils RF", "[else] reader.nextName: \"" + name + "\". Skipped because no \"Properties\"");
-                reader.skipValue();
-            }
-        }
-        reader.endObject();
-        return earthquakes;
-    }
-
 
 }
