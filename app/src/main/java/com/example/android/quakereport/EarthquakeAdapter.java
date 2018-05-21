@@ -30,7 +30,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         Earthquake currentEarthquake = getItem(position);
         /** Find the TextView in the list_item.xml layout with the ID time_text_view and set object time to this view */
         TextView timeTextView = (TextView) listItemView.findViewById(R.id.time_text_view);
-        timeTextView.setText(currentEarthquake.getTime());
+        timeTextView.setText(String.valueOf(currentEarthquake.getTime()));
         /** Find the TextView in the list_item.xml layout with the ID location_text_view and set object location to this view */
         TextView locationTextView = (TextView) listItemView.findViewById(R.id.location_text_view);
         locationTextView.setText(currentEarthquake.getLocation());

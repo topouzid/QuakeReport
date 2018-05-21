@@ -10,17 +10,17 @@ public class Earthquake {
     private String mLocation;
 
     /** Timestamp of the earthquake */
-    private String mTime;
+    private long mTime;
 
     /** Magnitude of the earthquake */
-    private float mMagnitude;
+    private double mMagnitude;
 
     /** Constructor that has exactly the same name as the class
      * @param location Is the name of the location nearby the earthquake
      * @param time is the date and time of the earthquake
      * @param magnitude is the magnitude of the erthquake in Richter scale (decimal)
      */
-    public Earthquake(String location, String time, float magnitude) {
+    public Earthquake(String location, long time, double magnitude) {
         mLocation = location;
         mTime = time;
         mMagnitude = magnitude;
@@ -36,14 +36,14 @@ public class Earthquake {
     /** Method: get the time and date of the earthquake
      * @return date and time in format: Feb 16, 2009
      */
-    public String getTime() {
+    public long getTime() {
         return mTime;
     }
 
     /** Method: get the magnitude of the earthquake
      * @return floating point magnitude, richter scale
      */
-    public float getMagnitude() {
+    public double getMagnitude() {
         return mMagnitude;
     }
 }

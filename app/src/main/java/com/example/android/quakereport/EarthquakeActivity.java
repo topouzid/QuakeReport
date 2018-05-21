@@ -17,13 +17,16 @@ package com.example.android.quakereport;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity {
+public class EarthquakeActivity extends AppCompatActivity{
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
 
@@ -33,23 +36,28 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-        final ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
+//        final ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
+//
+//        earthquakes.add(new Earthquake("San Francisco", "Feb 2, 2017", 4.5));
+//        earthquakes.add(new Earthquake("London", "Mar 28, 2018", 3.9));
+//        earthquakes.add(new Earthquake("Tokyo", "Mar 29, 2018", 4.1));
+//        earthquakes.add(new Earthquake("Mexico City", "Apr 4, 2018", 5.2));
+//        earthquakes.add(new Earthquake("Moscow", "Apr 9, 2018", 5.0));
+//        earthquakes.add(new Earthquake("Rio de Janeiro", "Apr 16, 2018", 6.3));
+//        earthquakes.add(new Earthquake("Paris", "May 11, 2018", 2.1));
 
-        earthquakes.add(new Earthquake("San Francisco", "Feb 2, 2017", 4.5f));
-        earthquakes.add(new Earthquake("London", "Mar 28, 2018", 3.9f));
-        earthquakes.add(new Earthquake("Tokyo", "Mar 29, 2018", 4.1f));
-        earthquakes.add(new Earthquake("Mexico City", "Apr 4, 2018", 5.2f));
-        earthquakes.add(new Earthquake("Moscow", "Apr 9, 2018", 5.0f));
-        earthquakes.add(new Earthquake("Rio de Janeiro", "Apr 16, 2018", 6.3f));
-        earthquakes.add(new Earthquake("Paris", "May 11, 2018", 2.1f));
+        try {
+            ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+            // Create a new custom {@link EarthquakeAdapter} of earthquakes
+            EarthquakeAdapter adapter = new EarthquakeAdapter(this, earthquakes);
+            // Find a reference to the {@link ListView} in the layout
+            ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
-        // Create a new custom {@link EarthquakeAdapter} of earthquakes
-        EarthquakeAdapter adapter = new EarthquakeAdapter(this, earthquakes);
-        // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
-
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
-        earthquakeListView.setAdapter(adapter);
+            // Set the adapter on the {@link ListView}
+            // so the list can be populated in the user interface
+            earthquakeListView.setAdapter(adapter);
+        } catch (IOException e) {
+            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+        }
     }
 }
