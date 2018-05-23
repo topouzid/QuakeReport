@@ -1,29 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/magnitude_text_view"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        tools:text="5.8"/>
+    <RelativeLayout
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/location_text_view"
+        <View
+            android:id="@+id/earthquake_icon_color"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            tools:background="@drawable/ic_circle_black_50dp">
+        </View>
+
+        <TextView
+            android:id="@+id/magnitude_text_view"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/magnitude_circle"
+            tools:text="5.8" />
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="2"
-        android:layout_height="wrap_content"
-        tools:text="Santa Clarita"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/time_text_view"
-        android:layout_width="100dp"
+        <TextView
+            android:id="@+id/location_heading_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="italic"
+            tools:text="Near the" />
+
+        <TextView
+            android:id="@+id/location_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            tools:text="Santa Clarita" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Sep 3, 2017"
-        android:gravity="end"/>
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date_text_view"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            tools:text="Sep 3, 2017" />
+
+        <TextView
+            android:id="@+id/time_text_view"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            tools:text="22:34 AM" />
+    </LinearLayout>
 
 </LinearLayout>

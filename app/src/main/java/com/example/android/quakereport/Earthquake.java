@@ -1,5 +1,8 @@
 package com.example.android.quakereport;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * {@link Earthquake} represents an earthquake with its data.
  * It contains the earthquake location, time and magnitude.
@@ -38,6 +41,18 @@ public class Earthquake {
      */
     public long getTime() {
         return mTime;
+    }
+
+    public String getSimpleDate() {
+        Date dateObject = new Date(mTime);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM DD, yyyy");
+        return dateFormatter.format(dateObject);
+    }
+
+    public String getSimpleTime() {
+        Date dateObject = new Date(mTime);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("h:mm a");
+        return dateFormatter.format(dateObject);
     }
 
     /** Method: get the magnitude of the earthquake
