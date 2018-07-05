@@ -1,5 +1,6 @@
 package com.example.android.quakereport;
 
+import android.net.NetworkInfo;
 import android.util.JsonReader;
 import android.util.Log;
 
@@ -216,7 +217,6 @@ public final class QueryUtils {
             return jsonResponse;
         }
 
-
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
@@ -279,8 +279,10 @@ public final class QueryUtils {
             while (line != null) {
                 output.append(line);
                 line = reader.readLine();
+                Log.v("readFromStream", "New Data Line: " + line);
             }
         }
+        Log.v("readFromStream", "Earthquake Data: " + output.toString());
         return output.toString();
     }
 }
